@@ -6,6 +6,14 @@ import (
 	"fmt"
 )
 
+func PagarBoleto(conta VerificaConta, valorDoBoleto float64) {
+	conta.Sacar(valorDoBoleto)
+}
+
+type VerificaConta interface {
+	Sacar(valor float64) (string, float64)
+}
+
 func main() {
 	conta := contas.ContaCorrente{
 		Titular: clientes.Titular{
@@ -43,6 +51,7 @@ func main() {
 	fmt.Println("Seu saldo atual é de:", valor)
 	fmt.Println("=========================================")
 	fmt.Println(conta.Transferir(1000, &conta2))
+	PagarBoleto(&conta, 60.00)
 	fmt.Println("saldo conta 1:", conta.ObterSaldo())
 	fmt.Println("saldo conta 2:", conta2.ObterSaldo())
 }
